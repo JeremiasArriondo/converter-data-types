@@ -66,6 +66,23 @@ export default function Converter() {
     };
   };
 
+  const generateRamlDataType = (obj, level = 0) => {
+    let result = "";
+
+    for (const [key, value] of Object.entries(obj)) {
+      if (value === "vacio") {
+        result += `${"  ".repeat(level)}${key}: string\n`;
+      } else if (typeof value === "object") {
+        result += `${"  ".repeat(level)}${key}:\n`;
+        result += generateRamlDataType(value, level + 1);
+      } else {
+        result += `${"  ".repeat(level)}${key}: ${value}\n`;
+      }
+    }
+
+    return result;
+  };
+
   return (
     <div className="h-screen">
       <div class="flex justify-between">
@@ -84,6 +101,14 @@ export default function Converter() {
           value={JSON.stringify(JSON.parse(input), null, 4)}
           className="block text-xs text-base-dark overflow-y-auto"
         />
+        <div className="bg-violet-400/30 border border-violet-600 p-4">
+          {result && (
+            <div className="text-xs ">
+              #%RAML 1.0 DataType <br />
+              <pre>{generateRamlDataType(result)}</pre>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
