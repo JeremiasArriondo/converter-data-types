@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+// import Converter from "../components/Converter.tsx";
+---
+
+<Layout title="Convertidor JSON a Data-Type">
+  <main>
+    <h1 class="text-4xl font-bold">
+      Convertidor de JSON a <span class="text-gradient"> Data-Types</span>
+    </h1>
+    <div class="my-8 text-base-light">
+      <h2 class="text-xl">
+        Los <strong>Data Types</strong> son una forma concisa y versátil de describir
+        y validar datos dentro de su definición de API.
+      </h2>
+      <p class="text-md">
+        Para comenzar ingresa tu estructura json en el siguiente contenedor<br
+        />
+      </p>
+    </div>
+    <div class="instructions">
+      <!-- <Converter client:load /> -->
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+  .instructions {
+    margin-bottom: 2rem;
+    border: 1px solid rgba(var(--accent-light), 25%);
+    background: linear-gradient(
+      rgba(var(--accent-dark), 66%),
+      rgba(var(--accent-dark), 33%)
+    );
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+</style>
