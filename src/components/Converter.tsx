@@ -8,6 +8,9 @@ export default function Converter() {
     pruebaObjeto: {
       key1: "string",
       key2: 1,
+      key3: {
+        primer: "string",
+      },
     },
     test1: "prueba",
     numero1: 1,
@@ -36,9 +39,20 @@ export default function Converter() {
   });
   const [input, setInput] = useState(json);
   const [result, setResult] = useState("");
+  const [error, setError] = useState(null);
 
   const onHandler = (e) => {
+    if (e.target.value === "") return;
     setInput(e.target.value);
+  };
+
+  const onHandlerConverter = (value) => {
+    try {
+      const json = JSON.parse(value);
+      setResult(converter(json));
+    } catch (error) {
+      setError(error.name + error.message);
+    }
   };
 
   const converter = (json) => {
@@ -66,15 +80,15 @@ export default function Converter() {
     };
   };
 
-  const generateRamlDataType = (obj, level = 0) => {
-    let result = "";
+  const generateRamlDataType = (obj, level = 0, isFirstLevel = true) => {
+    let result = isFirstLevel ? "#%RAML 1.0 DataType\n\n" : "";
 
     for (const [key, value] of Object.entries(obj)) {
       if (value === "vacio") {
         result += `${"  ".repeat(level)}${key}: string\n`;
       } else if (typeof value === "object") {
         result += `${"  ".repeat(level)}${key}:\n`;
-        result += generateRamlDataType(value, level + 1);
+        result += generateRamlDataType(value, level + 1, false);
       } else {
         result += `${"  ".repeat(level)}${key}: ${value}\n`;
       }
@@ -87,29 +101,27 @@ export default function Converter() {
     <div className="h-screen">
       <div class="flex justify-between">
         <button>Pegar JSON</button>
-        <button
-          className="block"
-          onClick={() => setResult(converter(JSON.parse(input)))}
-        >
+        <button className="block" onClick={() => onHandlerConverter(input)}>
           Convertir
         </button>
         <button>Copiar DataType</button>
       </div>
       <div className="grid grid-cols-2 h-[calc(100vh-4rem)] overflow-auto">
         <textarea
-          onKeyUp={onHandler}
-          value={JSON.stringify(JSON.parse(input), null, 4)}
-          className="block text-xs text-base-dark overflow-y-auto"
+          onChange={onHandler}
+          // JSON.parse(input), null, 4)
+          value={input}
+          className="h-full px-4 block text-base text-base-dark overflow-y-auto resize-none"
         />
         <div className="bg-violet-400/30 border border-violet-600 p-4">
           {result && (
-            <div className="text-xs ">
-              #%RAML 1.0 DataType <br />
+            <div className="text-xs">
               <pre>{generateRamlDataType(result)}</pre>
             </div>
           )}
         </div>
       </div>
+      <div>{error && <p className="bg-red-300 px-2">{error}</p>}</div>
     </div>
   );
 }

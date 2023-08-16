@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-// import Converter from "../components/Converter.tsx";
+import Converter from "../components/Converter";
 ---
 
 <Layout title="Convertidor JSON a Data-Type">
@@ -19,7 +19,7 @@ import Layout from "../layouts/Layout.astro";
       </p>
     </div>
     <div class="instructions">
-      <!-- <Converter client:load /> -->
+      <Converter client:load />
     </div>
   </main>
 </Layout>
