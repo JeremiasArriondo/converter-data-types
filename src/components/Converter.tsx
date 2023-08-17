@@ -50,6 +50,7 @@ export default function Converter() {
     try {
       const json = JSON.parse(value);
       setResult(converter(json));
+      setError(null);
     } catch (error) {
       setError(error.name + error.message);
     }
@@ -98,7 +99,7 @@ export default function Converter() {
   };
 
   return (
-    <div className="h-screen">
+    <div>
       <div class="flex justify-between">
         <button>Pegar JSON</button>
         <button className="block" onClick={() => onHandlerConverter(input)}>
@@ -106,11 +107,10 @@ export default function Converter() {
         </button>
         <button>Copiar DataType</button>
       </div>
-      <div className="grid grid-cols-2 h-[calc(100vh-4rem)] overflow-auto">
+      <div className="grid grid-cols-2 h-[calc(100vh-20rem)] overflow-auto">
         <textarea
           onChange={onHandler}
-          // JSON.parse(input), null, 4)
-          value={input}
+          value={JSON.stringify(JSON.parse(input), null, 4)}
           className="h-full px-4 block text-base text-base-dark overflow-y-auto resize-none"
         />
         <div className="bg-violet-400/30 border border-violet-600 p-4">
@@ -121,7 +121,11 @@ export default function Converter() {
           )}
         </div>
       </div>
-      <div>{error && <p className="bg-red-300 px-2">{error}</p>}</div>
+      <div>
+        {error && (
+          <p className="text-base text-white bg-red-500 p-2">{error}</p>
+        )}
+      </div>
     </div>
   );
 }
