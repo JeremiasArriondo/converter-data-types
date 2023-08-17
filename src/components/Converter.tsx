@@ -37,12 +37,12 @@ export default function Converter() {
       },
     },
   });
-  const [input, setInput] = useState(json);
+  const [input, setInput] = useState("");
   const [result, setResult] = useState("");
   const [error, setError] = useState(null);
 
   const onHandler = (e) => {
-    if (e.target.value === "") return;
+    if (e.target.value === "" || input === "") return;
     setInput(e.target.value);
   };
 
@@ -98,11 +98,25 @@ export default function Converter() {
     return result;
   };
 
+  const jsonExample = JSON.stringify({
+    example: {
+      tool: "Mulesoft",
+    },
+  });
+
   return (
     <div>
       <div class="flex justify-between">
         <button>Pegar JSON</button>
-        <button className="block" onClick={() => onHandlerConverter(input)}>
+        <button
+          onClick={() => onHandlerConverter(input)}
+          disabled={input !== ""}
+          className={`${
+            input === ""
+              ? "disabled:opacity-25 pointer-events-none text-gray-400"
+              : "text-white"
+          } block `}
+        >
           Convertir
         </button>
         <button>Copiar DataType</button>
@@ -111,7 +125,8 @@ export default function Converter() {
         <textarea
           onChange={onHandler}
           value={input}
-          className="h-full px-4 block text-base text-base-dark overflow-y-auto resize-none"
+          placeholder={jsonExample}
+          className="h-full px-4 block text-base text-slate-800 overflow-y-auto resize-none"
         />
         <div className="bg-blue-950/50 p-4">
           {result && (
