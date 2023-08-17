@@ -110,10 +110,10 @@ export default function Converter() {
       <div className="grid grid-cols-2 h-[calc(100vh-20rem)] overflow-auto">
         <textarea
           onChange={onHandler}
-          value={JSON.stringify(JSON.parse(input), null, 4)}
+          value={input}
           className="h-full px-4 block text-base text-base-dark overflow-y-auto resize-none"
         />
-        <div className="bg-violet-400/30 border border-violet-600 p-4">
+        <div className="bg-blue-950/50 p-4">
           {result && (
             <div className="text-xs">
               <pre>{generateRamlDataType(result)}</pre>
