@@ -37,12 +37,12 @@ export default function Converter() {
       },
     },
   });
+
   const [input, setInput] = useState("");
   const [result, setResult] = useState("");
   const [error, setError] = useState(null);
 
   const onHandler = (e) => {
-    if (e.target.value === "" || input === "") return;
     setInput(e.target.value);
   };
 
@@ -110,10 +110,10 @@ export default function Converter() {
         <button>Pegar JSON</button>
         <button
           onClick={() => onHandlerConverter(input)}
-          disabled={input !== ""}
+          disabled={input === ""}
           className={`${
             input === ""
-              ? "disabled:opacity-25 pointer-events-none text-gray-400"
+              ? "disabled:opacity-50 pointer-events-none text-gray-400"
               : "text-white"
           } block `}
         >
@@ -123,7 +123,7 @@ export default function Converter() {
       </div>
       <div className="grid grid-cols-2 h-[calc(100vh-20rem)] overflow-auto">
         <textarea
-          onChange={onHandler}
+          onInput={onHandler}
           value={input}
           placeholder={jsonExample}
           className="h-full px-4 block text-base text-slate-800 overflow-y-auto resize-none"
