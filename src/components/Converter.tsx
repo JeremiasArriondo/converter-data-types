@@ -23,10 +23,28 @@ export default function Converter() {
     }
   };
 
+  const readClipboardText = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      setTextArea(text);
+    } catch (error) {
+      setError(error.name + error.message);
+    }
+  };
+
+  const writeClipboardText = async () => {
+    try {
+      const dataType = generateRamlDataType(result);
+      await navigator.clipboard.writeText(dataType);
+    } catch (error) {
+      setError(error.name + error.message);
+    }
+  };
+
   return (
     <>
       <div class="flex justify-between">
-        <button>Pegar JSON</button>
+        <button onClick={readClipboardText}>Pegar JSON</button>
         <button
           onClick={() => onHandlerConverter(textArea)}
           disabled={textArea === ""}
@@ -38,7 +56,7 @@ export default function Converter() {
         >
           Convertir
         </button>
-        <button>Copiar DataType</button>
+        <button onClick={writeClipboardText}>Copiar DataType</button>
       </div>
       <div className="grid grid-cols-2 h-[calc(100vh-20rem)] overflow-auto">
         <textarea
