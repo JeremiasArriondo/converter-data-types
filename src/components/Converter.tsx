@@ -56,7 +56,17 @@ export default function Converter() {
         >
           Convertir
         </button>
-        <button onClick={writeClipboardText}>Copiar DataType</button>
+        <button
+          onClick={writeClipboardText}
+          disabled={!Boolean(result)}
+          className={`${
+            !Boolean(result)
+              ? "disabled:opacity-50 pointer-events-none text-gray-400"
+              : "text-white"
+          } block `}
+        >
+          Copiar DataType
+        </button>
       </div>
       <div className="grid grid-cols-2 h-[calc(100vh-20rem)] overflow-auto">
         <textarea
