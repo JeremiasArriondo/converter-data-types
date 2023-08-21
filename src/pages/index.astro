@@ -14,12 +14,16 @@ import Converter from "../components/Converter";
         y validar datos dentro de su definición de API.
       </h2>
       <p class="text-md">
-        Para comenzar ingresa tu estructura json en el contenedor izquierdo<br
-        />
+        Para comenzar ingresá tu estructura JSON en el contenedor izquierdo.
       </p>
     </div>
-    <div class="instructions">
+    <div class="box-converter">
       <Converter client:load />
+    </div>
+    <div>
+      <p>
+        Si te interesa aprender más sobre Data types, puedes revisar el siguiente enlace <br/><a href="https://docs.mulesoft.com/studio/6.x/raml-1-0-data-types-support" rel="noopener noreferrer" target="_blank" class="inline text-gradient font-bold underline decoration-solid decoration-base-light hover:decoration-base">RAML 1.0 Data Types</a>
+      </p>
     </div>
   </main>
 </Layout>
@@ -44,14 +48,14 @@ import Converter from "../components/Converter";
     background-size: 400%;
     background-position: 0%;
   }
-  .instructions {
+  .box-converter {
     margin-bottom: 2rem;
     border: 1px solid #93c5fd;
     background: linear-gradient(
       rgba(0, 159, 224, 66%),
       rgba(0, 159, 224, 22%)
     );
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 8px;
   }
 </style>
