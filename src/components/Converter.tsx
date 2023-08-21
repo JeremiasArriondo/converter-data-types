@@ -2,11 +2,16 @@ import { h } from "preact";
 import { useState } from "preact/hooks";
 import { converter, JSONSchema } from "src/utils/converter";
 import { generateRamlDataType } from "src/utils/generateRamlDataType";
+import { ConverterIcon } from "./Icons/ConverterIcon";
+import { CopyIcon } from "./Icons/CopyIcon";
+import { FileCheck } from "./Icons/FileCheck";
+import { PasteIcon } from "./Icons/PasteIcon";
 
 export default function Converter() {
   const [textArea, setTextArea] = useState("");
   const [result, setResult] = useState<JSONSchema>(null);
   const [error, setError] = useState(null);
+  const [isCopy, setIsCopy] = useState(false);
 
   const onHandlerTextArea = (e: h.JSX.TargetedEvent<HTMLTextAreaElement>) => {
     setTextArea(e.currentTarget.value);
@@ -17,6 +22,7 @@ export default function Converter() {
       const json = JSON.parse(value);
       const prevResult = converter(json);
       setResult(prevResult);
+      setIsCopy(false);
       setError(null);
     } catch (error) {
       setError(error.name + error.message);
@@ -36,6 +42,7 @@ export default function Converter() {
     try {
       const dataType = generateRamlDataType(result);
       await navigator.clipboard.writeText(dataType);
+      setIsCopy(true);
     } catch (error) {
       setError(error.name + error.message);
     }
@@ -44,7 +51,13 @@ export default function Converter() {
   return (
     <>
       <div class="flex justify-between">
-        <button onClick={readClipboardText}>Pegar JSON</button>
+        <button
+          onClick={readClipboardText}
+          className="py-2 flex gap-2 flex-col md:flex-row items-center text-base text-white hover:text-base-light select-none"
+        >
+          Pegar JSON
+          <PasteIcon />
+        </button>
         <button
           onClick={() => onHandlerConverter(textArea)}
           disabled={textArea === ""}
@@ -52,9 +65,9 @@ export default function Converter() {
             textArea === ""
               ? "disabled:opacity-50 pointer-events-none text-gray-400"
               : "text-white"
-          } block `}
+          } py-2 flex gap-2 flex-col md:flex-row items-center text-base hover:text-base-light select-none`}
         >
-          Convertir
+          Convertir <ConverterIcon />
         </button>
         <button
           onClick={writeClipboardText}
@@ -63,16 +76,24 @@ export default function Converter() {
             !Boolean(result)
               ? "disabled:opacity-50 pointer-events-none text-gray-400"
               : "text-white"
-          } block `}
+          } py-2 flex gap-2 flex-col md:flex-row items-center text-base hover:text-base-light select-none`}
         >
-          Copiar DataType
+          {isCopy ? (
+            <>
+              Copiado exitoso <FileCheck />
+            </>
+          ) : (
+            <>
+              Copiar DataType <CopyIcon />
+            </>
+          )}
         </button>
       </div>
       <div className="grid grid-cols-2 h-[calc(100vh-20rem)] overflow-auto">
         <textarea
           onInput={onHandlerTextArea}
           value={textArea}
-          placeholder={`{"example":{"tool":"Mulesoft"}`}
+          placeholder={`{"example":{"tool":"Mulesoft"}}`}
           className="h-full px-4 block text-base text-slate-800 overflow-y-auto resize-none"
         />
         <div className="bg-blue-950/50 p-4">
