@@ -1,20 +1,11 @@
-export const IconMule = function IconMule() {
+export const IconMule = () => {
   return (
-    // <svg
-    //   xmlns="http://www.w3.org/2000/svg"
-    //   width="1.33em"
-    //   height="1.33em"
-    //   viewBox="0 0 24 24"
-    //   fill="none"
-    //   stroke="currentColor"
-    //   strokeWidth={2}
-    //   strokeLinecap="round"
-    //   strokeLinejoin="round"
-    // >
-    //   <line x1={18} y1={6} x2={6} y2={18} />
-    //   <line x1={6} y1={6} x2={18} y2={18} />
-    // </svg>
-    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width="64"
+      height="64"
+    >
       <g transform="matrix(1.918961 0 0 1.918961 -9.594807 -25.568816)">
         <g transform="matrix(.102746 0 0 .102746 4.52737 13.01093)">
           <defs>
