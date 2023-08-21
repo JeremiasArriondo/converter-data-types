@@ -10,7 +10,6 @@
     "moduleResolution": "node",
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "baseUrl": ".",
-    "allowImportingTsExtensions": true
+    "baseUrl": "."
   }
 }
